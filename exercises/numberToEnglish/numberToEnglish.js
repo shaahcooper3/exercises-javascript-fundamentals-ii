@@ -31,6 +31,10 @@ function remainder(numerator, denominator) {
 }
 
 function tensToEnglish(num) {
+  if (num > 99) {
+    throw new Error(`Invalid input: expected number less than 9, received: ${num}`);
+  }
+
   if (num < 20) {
     return smallNumberToEnglish(num);
   }
