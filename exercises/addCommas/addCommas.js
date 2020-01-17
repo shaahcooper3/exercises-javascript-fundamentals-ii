@@ -13,9 +13,17 @@
  *   commas in the appropriate places.
  */
 function addCommas(num) {
+  let positiveNum;
+
+  if (num < 0) {
+    positiveNum = -1 * num;
+  } else {
+    positiveNum = num;
+  }
+
   // First convert the input number to a string
   // and then work character-by-character
-  let original = String(num);
+  let original = String(positiveNum);
   let commaString = '';
 
   for(let i = 1;i <= original.length; i += 1) {
@@ -24,6 +32,10 @@ function addCommas(num) {
     if (i % 3 === 0 && i < original.length) {
       commaString = ',' + commaString;
     }
+  }
+
+  if (num < 0) {
+    commaString = '-' + commaString;
   }
 
   return commaString;
@@ -55,6 +67,9 @@ if (require.main === module) {
   testAddCommas(11111111, '11,111,111');
   testAddCommas(111111111, '111,111,111');
   testAddCommas(1111111111, '1,111,111,111');
+
+  testAddCommas(-111111, '-111,111');
+
 }
 
 module.exports = addCommas;
