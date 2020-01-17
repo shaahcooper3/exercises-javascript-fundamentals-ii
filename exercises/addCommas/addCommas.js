@@ -12,16 +12,49 @@
  * @returns {string} A string representation of the input number formatted with
  *   commas in the appropriate places.
  */
-
 function addCommas(num) {
-  // This is your job. :)
+  // First convert the input number to a string
+  // and then work character-by-character
+  let original = String(num);
+  let commaString = '';
+
+  for(let i = 1;i <= original.length; i += 1) {
+    commaString = original[original.length - i] + commaString;
+
+    if (i % 3 === 0 && i < original.length) {
+      commaString = ',' + commaString;
+    }
+  }
+
+  return commaString;
+}
+
+function testAddCommas(input, expectedOutput) {
+  let actualOutput = addCommas(input);
+  let msg;
+
+  if (expectedOutput === actualOutput) {
+    msg = 'PASS';
+  } else {
+    msg = 'FAIL';
+  }
+
+  console.log('[%s] %s === %s',  msg, expectedOutput, actualOutput);
 }
 
 if (require.main === module) {
   console.log('Running sanity checks for addCommas:');
 
-  // Add your own sanity checks here.
-  // How else will you be sure your code does what you think it does?
+  testAddCommas(1, '1');
+  testAddCommas(11, '11');
+  testAddCommas(111, '111');
+  testAddCommas(1111, '1,111');
+  testAddCommas(11111, '11,111');
+  testAddCommas(111111, '111,111');
+  testAddCommas(1111111, '1,111,111');
+  testAddCommas(11111111, '11,111,111');
+  testAddCommas(111111111, '111,111,111');
+  testAddCommas(1111111111, '1,111,111,111');
 }
 
 module.exports = addCommas;
