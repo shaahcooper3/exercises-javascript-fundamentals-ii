@@ -123,6 +123,12 @@ if (require.main === module) {
   testNumberToEnglish(54, 'fifty four');
   testNumberToEnglish(90, 'ninety');
   testNumberToEnglish(99, 'ninety nine');
+  testNumberToEnglish(999, 'nine hundred ninety nine');
+  testNumberToEnglish(200, 'two hundred');
+  testNumberToEnglish(205, 'two hundred five');
+  testNumberToEnglish(215, 'two hundred fifteen');
+  testNumberToEnglish(285, 'two hundred eighty five');
+  testNumberToEnglish(280, 'two hundred eighty');
 
   // Add more sanity checks as you go along.
   // How else will you know if your code does what you expect,
