@@ -15,7 +15,39 @@
  *   commas in the appropriate places.
  */
 function numberToEnglish(num) {
-  return smallNumberToEnglish(num);
+  if (num === 0) {
+    return 'zero';
+  }
+
+  return tensToEnglish(num);
+}
+
+function quotient(numerator, denominator) {
+  return Math.floor(numerator / denominator);
+}
+
+function remainder(numerator, denominator) {
+  return numerator % denominator;
+}
+
+function tensToEnglish(num) {
+  if (num < 20) {
+    return smallNumberToEnglish(num);
+  }
+
+  let tensInEnglish = [
+    '', '', 'twenty', 'thirty', 'forty',
+    'fifty','sixty', 'seventy', 'eighty', 'ninety',
+  ];
+
+  let tens = quotient(num, 10);
+  let ones = remainder(num, 10)
+
+  if (ones === 0) {
+    return tensInEnglish[tens];
+  } else {
+    return tensInEnglish[tens] + ' ' + smallNumberToEnglish(ones);
+  }
 }
 
 function smallNumberToEnglish(num) {
@@ -33,13 +65,35 @@ function smallNumberToEnglish(num) {
   return onesInEnglish[num];
 }
 
+function testNumberToEnglish(input, expectedOutput) {
+  let actualOutput = numberToEnglish(input);
+  let msg;
+
+  if (expectedOutput === actualOutput) {
+    msg = 'PASS';
+  } else {
+    msg = 'FAIL';
+  }
+
+  console.log('[%s] %s === %s',  msg, expectedOutput, actualOutput);
+}
+
 if (require.main === module) {
   console.log('Running sanity checks for numberToEnglish:');
 
-  console.log(numberToEnglish(0) === 'zero');
-  console.log(numberToEnglish(5) === 'five');
-  console.log(numberToEnglish(10) === 'ten');
-  console.log(numberToEnglish(19) === 'nineteen');
+  testNumberToEnglish(0, 'zero');
+  testNumberToEnglish(1, 'one');
+  testNumberToEnglish(2, 'two');
+  testNumberToEnglish(3, 'three');
+  testNumberToEnglish(4, 'four');
+  testNumberToEnglish(5, 'five');
+  testNumberToEnglish(6, 'six');
+  testNumberToEnglish(7, 'seven');
+  testNumberToEnglish(8, 'eight');
+  testNumberToEnglish(9, 'nine');
+  testNumberToEnglish(54, 'fifty four');
+  testNumberToEnglish(90, 'ninety');
+  testNumberToEnglish(99, 'ninety nine');
 
   // Add more sanity checks as you go along.
   // How else will you know if your code does what you expect,
