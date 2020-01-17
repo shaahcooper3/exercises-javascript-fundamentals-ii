@@ -129,10 +129,6 @@ if (require.main === module) {
   testNumberToEnglish(215, 'two hundred fifteen');
   testNumberToEnglish(285, 'two hundred eighty five');
   testNumberToEnglish(280, 'two hundred eighty');
-
-  // Add more sanity checks as you go along.
-  // How else will you know if your code does what you expect,
-  // or whether you've broken your existing code without realizing?
 }
 
 module.exports = numberToEnglish;
