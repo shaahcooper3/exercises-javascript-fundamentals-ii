@@ -15,11 +15,42 @@
  *   commas in the appropriate places.
  */
 function numberToEnglish(num) {
+  let thousands = ['thousand', 'million', 'billion', 'trillion'];
+
+  if (num >= 1000 ** (thousands.length + 1)) {
+    throw new Error(`Input is too large: ${num}`);
+  }
+
   if (num === 0) {
     return 'zero';
   }
 
-  return hundredsToEnglish(num);
+  let englishString = '';
+  let rest = num;
+  let k = thousands.length;
+
+  while(rest >= 1000) {
+    let placeValue = quotient(rest, 1000 ** k);
+    rest = remainder(rest, 1000 ** k);
+
+    if (placeValue > 0) {
+      let powerName = thousands[k - 1];
+
+      englishString = englishString + hundredsToEnglish(placeValue) + ' ' + powerName;
+
+      if (rest > 0) {
+        englishString = englishString + ' ';
+      }
+    }
+
+    k -= 1;
+  }
+
+  if (rest > 0) {
+    englishString = englishString + hundredsToEnglish(rest);
+  }
+
+  return englishString;
 }
 
 function quotient(numerator, denominator) {
@@ -129,6 +160,19 @@ if (require.main === module) {
   testNumberToEnglish(215, 'two hundred fifteen');
   testNumberToEnglish(285, 'two hundred eighty five');
   testNumberToEnglish(280, 'two hundred eighty');
+
+  testNumberToEnglish(1000, 'one thousand');
+  testNumberToEnglish(1001, 'one thousand one');
+  testNumberToEnglish(1015, 'one thousand fifteen');
+  testNumberToEnglish(1115, 'one thousand one hundred fifteen');
+  testNumberToEnglish(1100, 'one thousand one hundred');
+  testNumberToEnglish(1234, 'one thousand two hundred thirty four');
+  testNumberToEnglish(55555, 'fifty five thousand five hundred fifty five');
+  testNumberToEnglish(1000000, 'one million');
+  testNumberToEnglish(1000001, 'one million one');
+  testNumberToEnglish(1000200, 'one million two hundred');
+  testNumberToEnglish(1200215, 'one million two hundred thousand two hundred fifteen');
+  testNumberToEnglish(21200215, 'twenty one million two hundred thousand two hundred fifteen');
 }
 
 module.exports = numberToEnglish;
