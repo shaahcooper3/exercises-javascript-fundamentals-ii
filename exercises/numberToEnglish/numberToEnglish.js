@@ -19,7 +19,7 @@ function numberToEnglish(num) {
     return 'zero';
   }
 
-  return tensToEnglish(num);
+  return hundredsToEnglish(num);
 }
 
 function quotient(numerator, denominator) {
@@ -28,6 +28,31 @@ function quotient(numerator, denominator) {
 
 function remainder(numerator, denominator) {
   return numerator % denominator;
+}
+
+function hundredsToEnglish(num) {
+  if (num > 999) {
+    throw new Error(`Invalid input: expected number less than 1000, received: ${num}`);
+  }
+
+  if (num < 100) {
+    return tensToEnglish(num);
+  }
+
+  let hundreds = quotient(num, 100);
+  let tens = remainder(num, 100);
+
+  if (hundreds > 0) {
+    let englishString = smallNumberToEnglish(hundreds) + ' hundred';
+
+    if (tens > 0) {
+      englishString = englishString + ' ' + tensToEnglish(tens);
+    }
+
+    return englishString;
+  } else {
+    return tensToEnglish(tens);
+  }
 }
 
 function tensToEnglish(num) {
