@@ -17,7 +17,12 @@
  */
 
 function formatSeconds(num) {
-  // This is your job. :)
+  
+ //60 seconds = 1m
+ //3600 seconds or 60m= 1h
+ //86400 seconds or 24h = 1d
+ //604800 seconds or 7d= 1w
+ // This is your job. :)
 
   // Remember, if the code is stumping you, take a step back and
   // make sure you can do it by hand.
